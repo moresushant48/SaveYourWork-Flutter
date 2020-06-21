@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:web_test/Globals.dart' as global;
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,7 +24,10 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  var url = "https://saveyourwork.herokuapp.com/rest/list-files/1";
+  
+  
+  
+  var url = global.API_URL + "list-files/1";
   var data;
 
   @override
