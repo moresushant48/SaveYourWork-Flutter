@@ -8,54 +8,34 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:web_test/Globals.dart' as global;
+import 'package:web_test/pages/DrawerPage.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DynamicTheme.of(context).brightness == Brightness.light
-          ? Colors.white
-          : null,
-      body: HomeBody(),
-      appBar: AppBar(
-        textTheme: TextTheme(
-            headline6: TextStyle(
-                color: DynamicTheme.of(context).brightness == Brightness.light
-                    ? Colors.black
-                    : Colors.white)),
-        title: Text("Home"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(
-            color: DynamicTheme.of(context).brightness == Brightness.light
-                ? Colors.grey
-                : Colors.white),
-        actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountEmail: Text("moresushant48@gmail.com"),
-              accountName: Text("Sushant More"),
-              otherAccountsPictures: [
-                IconButton(
-                    icon: Icon(Icons.brightness_4),
-                    color: Colors.white,
-                    onPressed: () {
-                      DynamicTheme.of(context).setBrightness(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? Brightness.light
-                              : Brightness.dark);
-                    })
-              ],
-            )
+        backgroundColor: DynamicTheme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : null,
+        body: HomeBody(),
+        appBar: AppBar(
+          textTheme: TextTheme(
+              headline6: TextStyle(
+                  color: DynamicTheme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white)),
+          title: Text("Home"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(
+              color: DynamicTheme.of(context).brightness == Brightness.light
+                  ? Colors.grey
+                  : Colors.white),
+          actions: [
+            IconButton(icon: Icon(Icons.search), onPressed: () {}),
           ],
         ),
-      ),
-    );
+        drawer: AppDrawer());
   }
 }
 
