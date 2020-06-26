@@ -5,6 +5,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:web_test/Globals.dart' as global;
@@ -82,25 +83,37 @@ class _HomeBodyState extends State<HomeBody> {
                         SizedBox(height: 10.0),
                         Container(
                           height: 150.0,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return GridTile(
-                                child: Column(
-                                  children: [
-                                    Card(
-                                      child: FileIcon(
-                                        data[index]["fileName"],
-                                        size: 100.0,
+                          child: AnimationLimiter(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredGrid(
+                                  columnCount: data.length,
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: ScaleAnimation(
+                                    scale: 0.5,
+                                    child: FadeInAnimation(
+                                      child: GridTile(
+                                        child: Column(
+                                          children: [
+                                            Card(
+                                              child: FileIcon(
+                                                data[index]["fileName"],
+                                                size: 100.0,
+                                              ),
+                                            ),
+                                            SizedBox(height: 4.0),
+                                            Text(data[index]["fileName"])
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(height: 4.0),
-                                    Text(data[index]["fileName"])
-                                  ],
-                                ),
-                              );
-                            },
-                            itemCount: data.length,
+                                  ),
+                                );
+                              },
+                              itemCount: data.length,
+                            ),
                           ),
                         ),
                       ],
@@ -123,23 +136,36 @@ class _HomeBodyState extends State<HomeBody> {
                           ),
                           SizedBox(height: 10.0),
                           Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.symmetric(horizontal: 12.0),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  child: ListTile(
-                                    leading: FileIcon(
-                                      data[index]["fileName"],
-                                      size: 40.0,
+                            child: AnimationLimiter(
+                              child: ListView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    child: SlideAnimation(
+                                      verticalOffset: 50.0,
+                                      child: FadeInAnimation(
+                                        child: Card(
+                                          child: ListTile(
+                                            leading: FileIcon(
+                                              data[index]["fileName"],
+                                              size: 40.0,
+                                            ),
+                                            title:
+                                                Text(data[index]['fileName']),
+                                            trailing:
+                                                Text(data[index]['fileSize']),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    title: Text(data[index]['fileName']),
-                                    trailing: Text(data[index]['fileSize']),
-                                  ),
-                                );
-                              },
-                              itemCount: data.length,
+                                  );
+                                },
+                                itemCount: data.length,
+                              ),
                             ),
                           ),
                         ],
