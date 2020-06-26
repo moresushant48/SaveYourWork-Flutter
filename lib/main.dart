@@ -12,11 +12,13 @@ class MyApp extends StatelessWidget {
     return DynamicTheme(
         defaultBrightness: Brightness.light,
         data: (brightness) => new ThemeData(
+              fontFamily: 'Oxygen',
               primarySwatch: Colors.indigo,
               brightness: brightness,
             ),
         themedWidgetBuilder: (context, theme) {
           return new MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'SaveYourWork',
             theme: theme,
             home: HomePage(),
