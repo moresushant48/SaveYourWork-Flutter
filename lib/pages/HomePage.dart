@@ -100,17 +100,25 @@ class _HomeBodyState extends State<HomeBody> {
                                       scale: 0.5,
                                       child: FadeInAnimation(
                                         child: GridTile(
-                                          child: Column(
-                                            children: [
-                                              Card(
-                                                child: FileIcon(
-                                                  data[index]["fileName"],
-                                                  size: 100.0,
+                                          child: Container(
+                                            width: 120.0,
+                                            child: Column(
+                                              children: [
+                                                Card(
+                                                  child: FileIcon(
+                                                    data[index]["fileName"],
+                                                    size: 100.0,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 4.0),
-                                              Text(data[index]["fileName"])
-                                            ],
+                                                SizedBox(height: 4.0),
+                                                Text(
+                                                  data[index]["fileName"],
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
