@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Image.asset(
                 "assets/images/login.png",
-                width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
+                width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width - 50,
               ),
               Container(
                 width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,

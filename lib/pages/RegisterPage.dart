@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Image.asset(
                 "assets/images/register.png",
-                width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
+                width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width - 50,
                 semanticLabel: "Hello",
               ),
               Container(
