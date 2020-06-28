@@ -1,6 +1,8 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:web_test/pages/HomePage.dart';
+import 'package:web_test/pages/LoginPage.dart';
+import 'package:web_test/pages/RegisterPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +23,12 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'SaveYourWork',
             theme: theme,
-            home: HomePage(),
+            home: LoginPage(),
+            routes: {
+              "/home": (context) => HomePage(),
+              "/login": (context) => LoginPage(),
+              "/register": (context) => RegisterPage()
+            },
           );
         });
   }
