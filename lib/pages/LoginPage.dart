@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/API/ApiMethodsImpl.dart';
+import 'package:web_test/Models/User.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,6 +65,12 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
+  _saveUserInfo(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLoggedIn", true);
+    prefs.setString("user", json.encode(user));
+  }
+
   _onLogin() {
     if (_loginFormKey.currentState.validate()) {
       _loginFormKey.currentState.save();
@@ -71,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
       api.login(username.toString(), password.toString()).then((value) {
         if (value.getUsername == username) {
           _loadingAnimation();
+          _saveUserInfo(value);
           Fluttertoast.showToast(
               msg: "Login Successful.",
               gravity: ToastGravity.TOP,
