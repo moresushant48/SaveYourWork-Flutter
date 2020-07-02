@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               gravity: ToastGravity.TOP,
               backgroundColor: Colors.green,
               textColor: Colors.white);
-          Navigator.pushNamed(context, "/home");
+          Navigator.popAndPushNamed(context, "/home");
         } else {
           _loadingAnimation();
           Fluttertoast.showToast(
