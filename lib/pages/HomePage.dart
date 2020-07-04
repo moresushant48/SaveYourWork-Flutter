@@ -44,9 +44,6 @@ class _HomeBodyState extends State<HomeBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DynamicTheme.of(context).brightness == Brightness.light
-          ? Colors.white
-          : null,
       appBar: AppBar(
         title: Text("Home"),
         backgroundColor: Colors.transparent,
