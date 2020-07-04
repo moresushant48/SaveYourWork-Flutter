@@ -48,18 +48,8 @@ class _HomeBodyState extends State<HomeBody> {
           ? Colors.white
           : null,
       appBar: AppBar(
-        textTheme: TextTheme(
-            headline6: TextStyle(
-                color: DynamicTheme.of(context).brightness == Brightness.light
-                    ? Colors.black
-                    : Colors.white)),
         title: Text("Home"),
         backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(
-            color: DynamicTheme.of(context).brightness == Brightness.light
-                ? Colors.grey
-                : Colors.white),
         actions: [
           IconButton(
               icon: Icon(Icons.search),
