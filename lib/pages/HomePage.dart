@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -141,6 +140,7 @@ class _HomeBodyState extends State<HomeBody> {
                               Expanded(
                                 child: AnimationLimiter(
                                   child: ListView.builder(
+                                    primary: false,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 12.0),
                                     scrollDirection: Axis.vertical,

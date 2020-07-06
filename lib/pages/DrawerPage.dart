@@ -24,6 +24,17 @@ class AppDrawer extends StatelessWidget {
             ],
           ),
 
+          Divider(),
+
+          // About tile.
+          ListTile(
+            title: Text("About"),
+            trailing: Icon(Icons.info),
+            onTap: () => Navigator.pushReplacementNamed(context, "/about"),
+          ),
+
+          Divider(),
+
           // Logout Tile.
           ListTile(
             title: Text("Logout"),
