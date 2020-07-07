@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_test/API/ApiMethodsImpl.dart';
 
 import 'package:web_test/Globals.dart' as global;
 import 'package:web_test/pages/DrawerPage.dart';
@@ -23,20 +25,19 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  var url = global.API_URL + "list-files/1";
-  var downloadUrl = global.API_URL + "uploads/";
+  ApiMethodsImpl api;
   var data;
 
   @override
   void initState() {
     super.initState();
-
+    api = ApiMethodsImpl();
     getData();
   }
 
   getData() async {
-    data = await http.get(url);
-    data = jsonDecode(data.body);
+    var prefs = await SharedPreferences.getInstance();
+    data = await api.getUserFilesById(prefs.getInt('id'));
     setState(() {});
   }
 
