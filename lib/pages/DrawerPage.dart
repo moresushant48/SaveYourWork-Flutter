@@ -50,6 +50,12 @@ class _AppDrawerState extends State<AppDrawer> {
             ],
           ),
 
+          ListTile(
+            title: Text("My Files"),
+            trailing: Icon(Icons.folder),
+            onTap: () => Navigator.pushReplacementNamed(context, "/home"),
+          ),
+
           Divider(),
 
           // About tile.

@@ -76,7 +76,7 @@ class _HomeBodyState extends State<HomeBody> {
                             ),
                             SizedBox(height: 10.0),
                             Container(
-                              height: 150.0,
+                              height: 135.0,
                               child: AnimationLimiter(
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
