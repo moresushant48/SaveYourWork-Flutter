@@ -68,7 +68,10 @@ class _LoginPageState extends State<LoginPage> {
   _saveUserInfo(User user) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLoggedIn", true);
-    prefs.setString("user", json.encode(user));
+    prefs.setInt("id", user.getId);
+    prefs.setString("email", user.getEmail);
+    prefs.setString("username", user.getUsername);
+    prefs.setString("pass", user.getPublicPass);
   }
 
   _onLogin() {
