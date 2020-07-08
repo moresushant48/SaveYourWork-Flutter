@@ -56,134 +56,138 @@ class _HomeBodyState extends State<HomeBody> {
         ],
       ),
       drawer: AppDrawer(),
-      body: Container(
-        alignment: Alignment.center,
+      body: RefreshIndicator(
+        onRefresh: () async => await getData(), // GET DATA ONREFRESH
         child: data != null
             ? SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height + 120,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      // HORIZONTAL RECENTLY VIEWED ITEM LIST.
+                      //
                       Container(
-                        padding: EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Recently Viewed",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 10.0),
-                            Container(
-                              height: 135.0,
-                              child: AnimationLimiter(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return AnimationConfiguration.staggeredGrid(
-                                      columnCount: data.length,
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 375),
-                                      child: ScaleAnimation(
-                                        scale: 0.5,
-                                        child: FadeInAnimation(
-                                          child: GridTile(
-                                            child: Container(
-                                              width: 120.0,
-                                              child: Column(
-                                                children: [
-                                                  Card(
-                                                    child: FileIcon(
-                                                      data[index]["fileName"],
-                                                      size: 100.0,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 4.0),
-                                                  Text(
-                                                    data[index]["fileName"],
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  itemCount: data.length,
-                                ),
-                              ),
-                            ),
-                          ],
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "Recently accessed",
+                          style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                       ),
 
-                      // ALL FILES LIST.
-                      Expanded(
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: Text(
-                                  "All Files",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Expanded(
-                                child: AnimationLimiter(
-                                  child: ListView.builder(
-                                    primary: false,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 12.0),
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 375),
-                                        child: SlideAnimation(
-                                          verticalOffset: 50.0,
-                                          child: FadeInAnimation(
-                                            child: Card(
-                                              child: ListTile(
-                                                leading: FileIcon(
-                                                  data[index]["fileName"],
-                                                  size: 40.0,
-                                                ),
-                                                title: Text(
-                                                    data[index]['fileName']),
-                                                trailing: Text(
-                                                    data[index]['fileSize']),
+                      //
+                      SizedBox(
+                        height: 10.0,
+                      ),
+
+                      // Horizontal RECENTS LISTVIEW
+                      Container(
+                        height: 135.0,
+                        child: AnimationLimiter(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return AnimationConfiguration.staggeredGrid(
+                                columnCount: data.length,
+                                position: index,
+                                duration: const Duration(milliseconds: 375),
+                                child: ScaleAnimation(
+                                  scale: 0.5,
+                                  child: FadeInAnimation(
+                                    child: GridTile(
+                                      child: Container(
+                                        width: 120.0,
+                                        child: Column(
+                                          children: [
+                                            Card(
+                                              child: FileIcon(
+                                                data[index]["fileName"],
+                                                size: 100.0,
                                               ),
                                             ),
-                                          ),
+                                            SizedBox(height: 4.0),
+                                            Text(
+                                              data[index]["fileName"],
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            )
+                                          ],
                                         ),
-                                      );
-                                    },
-                                    itemCount: data.length,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              );
+                            },
+                            itemCount: data.length,
                           ),
                         ),
-                      )
+                      ),
+
+                      //
+                      SizedBox(
+                        height: 10.0,
+                      ),
+
+                      //
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "All Files",
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ),
+
+                      //
+                      SizedBox(
+                        height: 10.0,
+                      ),
+
+                      //
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          child: AnimationLimiter(
+                            child: ListView.builder(
+                              primary: false,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: SlideAnimation(
+                                    verticalOffset: 50.0,
+                                    child: FadeInAnimation(
+                                      child: Card(
+                                        child: ListTile(
+                                          leading: FileIcon(
+                                            data[index]["fileName"],
+                                            size: 40.0,
+                                          ),
+                                          title: Text(data[index]['fileName']),
+                                          trailing:
+                                              Text(data[index]['fileSize']),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: data.length,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               )
-            : CircularProgressIndicator(),
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
