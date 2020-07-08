@@ -204,6 +204,11 @@ class DataSearch extends SearchDelegate<String> {
   }
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData.dark();
+  }
+
+  @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
@@ -243,7 +248,7 @@ class DataSearch extends SearchDelegate<String> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
-          leading: Icon(Icons.location_city),
+          leading: FileIcon(suggList[index]),
           title: Text(suggList[index]),
         );
       },
