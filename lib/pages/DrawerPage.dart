@@ -37,6 +37,11 @@ class _AppDrawerState extends State<AppDrawer> {
           UserAccountsDrawerHeader(
             accountEmail: Text(email),
             accountName: Text(username),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/header.jpg"),
+                  fit: BoxFit.cover),
+            ),
             otherAccountsPictures: [
               IconButton(
                   icon: Icon(Icons.brightness_4),
