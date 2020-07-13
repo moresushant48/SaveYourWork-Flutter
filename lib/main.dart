@@ -4,6 +4,7 @@ import 'package:web_test/pages/AboutPage.dart';
 import 'package:web_test/pages/HomePage.dart';
 import 'package:web_test/pages/LoginPage.dart';
 import 'package:web_test/pages/RegisterPage.dart';
+import 'package:web_test/pages/SharedUserPage.dart';
 import 'package:web_test/pages/SplashPage.dart';
 
 void main() {
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
               "/home": (context) => HomePage(),
               "/login": (context) => LoginPage(),
               "/register": (context) => RegisterPage(),
-              "/about": (context) => AboutPage()
+              "/about": (context) => AboutPage(),
+              "/shared": (context) => SharedUserFiles(0)
             },
           );
         });
