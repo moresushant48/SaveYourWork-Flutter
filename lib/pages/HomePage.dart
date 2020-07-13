@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/API/ApiMethodsImpl.dart';
 
