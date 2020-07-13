@@ -62,12 +62,14 @@ class _AppDrawerState extends State<AppDrawer> {
           ListTile(
             title: Text("My Files"),
             trailing: Icon(Icons.folder),
+            subtitle: Text("Access your all files."),
             onTap: () => Navigator.pushReplacementNamed(context, "/home"),
           ),
 
           ListTile(
             title: Text("Shared Files"),
             trailing: Icon(Icons.folder_shared),
+            subtitle: Text("Click to search user's files."),
             onTap: () {
               Navigator.pop(context);
               showDialog(
