@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (value.isEmpty) {
       // The form is empty
       return "Enter Username";
-    } else if (value.length <= 5) {
+    } else if (value.length < 5) {
       return "Min 5 & Max 15 Characters";
     }
     return null;
@@ -71,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (value.isEmpty) {
       // The form is empty
       return "Enter Password";
-    } else if (value.length <= 5) {
+    } else if (value.length < 5) {
       return "Min 5 & Max 15 Characters";
     }
     return null;
