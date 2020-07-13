@@ -6,7 +6,7 @@ import 'package:web_test/API/ApiMethodsImpl.dart';
 import 'package:web_test/pages/DrawerPage.dart';
 
 class SharedUserFiles extends StatefulWidget {
-  int userId;
+  final int userId;
   SharedUserFiles(this.userId);
 
   @override
@@ -20,7 +20,7 @@ class _SharedUserFilesState extends State<SharedUserFiles> {
   // 1 - SHARED
   int _currentAccessIndex = 0;
   int userId;
-  var data;
+  var data = [];
   String pageTitle = "";
   String _publicPass;
 
@@ -31,7 +31,7 @@ class _SharedUserFilesState extends State<SharedUserFiles> {
 
   _getPublicData() async {
     setState(() => data = null);
-    data = await api.getPublicData(1);
+    data = await api.getPublicData(userId);
     setState(() {});
   }
 
@@ -40,7 +40,7 @@ class _SharedUserFilesState extends State<SharedUserFiles> {
       _verifyPublicPass();
     else {
       setState(() => data = null);
-      data = await api.getSharedData(1);
+      data = await api.getSharedData(userId);
       setState(() {});
     }
   }
@@ -130,33 +130,46 @@ class _SharedUserFilesState extends State<SharedUserFiles> {
                 onRefresh: () async => _currentAccessIndex == 0
                     ? await _getPublicData()
                     : await _getSharedData(),
-                child: AnimationLimiter(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50.0,
-                          child: FadeInAnimation(
-                            child: Card(
-                              child: ListTile(
-                                leading: FileIcon(
-                                  data[index]["fileName"],
-                                  size: 40.0,
+                child: data.isEmpty
+                    ? ListView(
+                        padding: EdgeInsets.all(24.0),
+                        children: [
+                          Center(
+                              child: Icon(
+                            Icons.assistant_photo,
+                            size: 50.0,
+                          )),
+                          SizedBox(height: 10.0),
+                          Center(child: Text("No Files Found"))
+                        ],
+                      )
+                    : AnimationLimiter(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                verticalOffset: 50.0,
+                                child: FadeInAnimation(
+                                  child: Card(
+                                    child: ListTile(
+                                      leading: FileIcon(
+                                        data[index]["fileName"],
+                                        size: 40.0,
+                                      ),
+                                      title: Text(data[index]['fileName']),
+                                      trailing: Text(data[index]['fileSize']),
+                                    ),
+                                  ),
                                 ),
-                                title: Text(data[index]['fileName']),
-                                trailing: Text(data[index]['fileSize']),
                               ),
-                            ),
-                          ),
+                            );
+                          },
+                          itemCount: data.length,
                         ),
-                      );
-                    },
-                    itemCount: data.length,
-                  ),
-                ),
+                      ),
               )
             : Center(child: CircularProgressIndicator()),
       ),
