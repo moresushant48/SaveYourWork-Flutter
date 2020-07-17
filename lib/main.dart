@@ -1,6 +1,7 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:web_test/pages/AboutPage.dart';
+import 'package:web_test/pages/AccountPage.dart';
 import 'package:web_test/pages/HomePage.dart';
 import 'package:web_test/pages/LoginPage.dart';
 import 'package:web_test/pages/RegisterPage.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
               "/login": (context) => LoginPage(),
               "/register": (context) => RegisterPage(),
               "/about": (context) => AboutPage(),
-              "/shared": (context) => SharedUserFiles(0)
+              "/shared": (context) => SharedUserFiles(0),
+              "/account": (context) => AccountPage()
             },
           );
         });

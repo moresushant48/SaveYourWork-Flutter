@@ -150,6 +150,14 @@ class _AppDrawerState extends State<AppDrawer> {
 
           // About tile.
           ListTile(
+            title: Text("Account"),
+            trailing: Icon(Icons.account_circle),
+            subtitle: Text("View account info"),
+            onTap: () => Navigator.pushReplacementNamed(context, "/account"),
+          ),
+
+          // About tile.
+          ListTile(
             title: Text("About"),
             trailing: Icon(Icons.info),
             onTap: () => Navigator.pushReplacementNamed(context, "/about"),
