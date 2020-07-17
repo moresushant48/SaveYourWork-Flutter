@@ -28,7 +28,6 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
@@ -38,7 +37,7 @@ class _AccountPageState extends State<AccountPage> {
       body: SingleChildScrollView(
         child: SizedBox(
           child: Flex(
-            direction: isPortrait ? Axis.vertical : Axis.horizontal,
+            direction: Axis.vertical,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
