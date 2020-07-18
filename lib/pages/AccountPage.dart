@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/pages/DrawerPage.dart';
@@ -36,40 +37,41 @@ class _AccountPageState extends State<AccountPage> {
       ),
       body: SingleChildScrollView(
         child: SizedBox(
+          width: MediaQuery.of(context).size.width,
           child: Flex(
             direction: Axis.vertical,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  margin: EdgeInsets.all(12.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 18.0),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 50.0,
-                          backgroundColor: Colors.amber,
-                          child: Text(
-                            _username.substring(0, 1).toUpperCase(),
-                            style: TextStyle(fontSize: 24.0),
-                          ),
+              Card(
+                margin: EdgeInsets.all(12.0),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 18.0),
+                  width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 50.0,
+                        backgroundColor: Colors.amber,
+                        child: Text(
+                          _username.substring(0, 1).toUpperCase(),
+                          style: TextStyle(fontSize: 24.0),
                         ),
-                        SizedBox(height: 10.0),
-                        Text(
-                          _username ?? "",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          _email ?? "",
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w100,
-                              color: Colors.grey[500]),
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        _username ?? "",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        _email ?? "",
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w100,
+                            color: Colors.grey[500]),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -78,7 +80,7 @@ class _AccountPageState extends State<AccountPage> {
               Card(
                 margin: EdgeInsets.all(12.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
                   child: Column(
                     children: [
                       Container(
@@ -120,7 +122,7 @@ class _AccountPageState extends State<AccountPage> {
               Card(
                 margin: EdgeInsets.all(12.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
                   child: Column(
                     children: [
                       Container(
@@ -162,7 +164,7 @@ class _AccountPageState extends State<AccountPage> {
               Card(
                 margin: EdgeInsets.all(12.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
                   child: Column(
                     children: [
                       Container(
