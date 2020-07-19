@@ -65,8 +65,16 @@ class ApiMethodsImpl {
         : throw Exception();
   }
 
+  // GET : THE SHARED SECURITY KEY TO ACCESS SHARED FILES.
   Future<String> getSharedKey(int userId) async {
     var url = "user/account/getKey/" + userId.toString();
+    final response = await http.get(globals.API_URL + url);
+    return response.statusCode == 200 ? response.body : throw Exception();
+  }
+
+  // GET : GENERATE THE NEW SHARED KEY.
+  Future<String> generateSharedKey(int userId) async {
+    var url = "user/account/genKey/" + userId.toString();
     final response = await http.get(globals.API_URL + url);
     return response.statusCode == 200 ? response.body : throw Exception();
   }

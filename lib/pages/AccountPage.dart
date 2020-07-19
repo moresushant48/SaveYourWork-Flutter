@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_test/API/ApiMethodsImpl.dart';
 import 'package:web_test/pages/DrawerPage.dart';
 
 class AccountPage extends StatefulWidget {
@@ -9,9 +10,13 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  ApiMethodsImpl _api = ApiMethodsImpl();
+  int _userId;
   String _username;
   String _email;
   String _pass;
+
+  bool _isFetchingKey = false;
 
   @override
   void initState() {
@@ -21,10 +26,47 @@ class _AccountPageState extends State<AccountPage> {
 
   _fillUserData() async {
     final prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getInt("id");
     _username = prefs.getString("username");
     _email = prefs.getString("email");
     _pass = prefs.getString("pass");
     setState(() {});
+  }
+
+  _generateSharedKey() {
+    setState(() {
+      _isFetchingKey = true;
+    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Generate New Key"),
+            content: Text("Do you really want to generate new Shared Key ?"),
+            actions: [
+              FlatButton(
+                  child: Text("No"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _isFetchingKey = false;
+                    setState(() {});
+                  }),
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await _api.generateSharedKey(_userId).then((value) async {
+                    _pass = value;
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setString("pass", value);
+                    _isFetchingKey = false;
+                    setState(() {});
+                  });
+                },
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -95,12 +137,16 @@ class _AccountPageState extends State<AccountPage> {
                       ListTile(
                         leading: Icon(Icons.vpn_key),
                         title: Center(child: Text(_pass ?? "")),
-                        trailing: GestureDetector(
-                          child: Icon(
-                            Icons.refresh,
-                            color: Colors.green,
+                        trailing: Visibility(
+                          visible: _isFetchingKey,
+                          replacement: GestureDetector(
+                            onTap: _generateSharedKey, // Regenerate the key.
+                            child: Icon(
+                              Icons.refresh,
+                              color: Colors.green,
+                            ),
                           ),
-                          onTap: () {}, // Regenerate the key.
+                          child: CircularProgressIndicator(),
                         ),
                       ),
                       Container(
