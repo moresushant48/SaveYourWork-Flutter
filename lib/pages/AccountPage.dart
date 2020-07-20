@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/API/ApiMethodsImpl.dart';
 import 'package:web_test/pages/DrawerPage.dart';
@@ -183,13 +184,7 @@ class _AccountPageState extends State<AccountPage> {
                       ListTile(
                         leading: Icon(Icons.visibility_off),
                         title: Center(child: Text("********")),
-                        trailing: GestureDetector(
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.blue,
-                          ),
-                          onTap: () {}, // Regenerate the key.
-                        ),
+                        trailing: EditPassWithModal(),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -255,6 +250,147 @@ class _AccountPageState extends State<AccountPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class EditPassWithModal extends StatefulWidget {
+  @override
+  _EditPassWithModalState createState() => _EditPassWithModalState();
+}
+
+class _EditPassWithModalState extends State<EditPassWithModal> {
+  final ApiMethodsImpl api = ApiMethodsImpl();
+  String _currentPassword = "";
+
+  @override
+  void initState() {
+    _setPassword();
+    super.initState();
+  }
+
+  _setPassword() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _currentPassword = prefs.getString("password");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var _passResetKey = GlobalKey<FormState>();
+    var _currentPassController = TextEditingController();
+    var _newPassController = TextEditingController();
+    _setPassword();
+    return GestureDetector(
+      child: Icon(
+        Icons.edit,
+        color: Colors.blue,
+      ),
+      onTap: () {
+        showBottomSheet(
+          context: context,
+          elevation: 20.0,
+          builder: (context) {
+            return SingleChildScrollView(
+              child: Container(
+                width: kIsWeb ? 400.0 : MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(16.0),
+                child: Form(
+                  key: _passResetKey,
+                  autovalidate: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FlatButton(
+                        child: Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Enter Current Password",
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: _currentPassController,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Current Password";
+                          } else if (value != _currentPassword) {
+                            return "Current password couldn't match.";
+                          }
+                          return null;
+                        },
+                        onSaved: (newValue) async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString("password", newValue);
+                        },
+                      ),
+                      SizedBox(height: 8.0),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Enter New Password",
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: _newPassController,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            // The password is empty
+                            return "Enter New Password";
+                          } else if (value.length < 5 || value.length > 15) {
+                            return "Min 5 & Max 15 Characters";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 10.0),
+
+                      // SUBMIT
+                      FlatButton(
+                        onPressed: () async {
+                          if (_passResetKey.currentState.validate()) {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await api
+                                .resetPassword(prefs.getInt("id"),
+                                    _newPassController.text.toString())
+                                .then((value) {
+                              if (value == true) //Password Changed
+                              {
+                                prefs.setString("password",
+                                    _newPassController.text.toString());
+                                Navigator.pop(context);
+                                Fluttertoast.showToast(
+                                    msg: "Password changed succefully.",
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.white,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    toastLength: Toast.LENGTH_LONG);
+                              } else {
+                                Navigator.pop(context);
+                                Fluttertoast.showToast(
+                                    msg: "Couldn't reset password.",
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    toastLength: Toast.LENGTH_LONG);
+                              }
+                            });
+                          }
+                        },
+                        child: Text("Submit"),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }, // Regenerate the key.
     );
   }
 }

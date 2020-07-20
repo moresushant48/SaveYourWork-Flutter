@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
     prefs.setString("email", user.getEmail);
     prefs.setString("username", user.getUsername);
     prefs.setString("pass", user.getPublicPass);
+    prefs.setString("password", txtPasswordController.text.toString());
   }
 
   _onLogin() {

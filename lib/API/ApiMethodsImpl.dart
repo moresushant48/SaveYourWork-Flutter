@@ -78,4 +78,14 @@ class ApiMethodsImpl {
     final response = await http.get(globals.API_URL + url);
     return response.statusCode == 200 ? response.body : throw Exception();
   }
+
+  // POST : RESET THE USER PASSWORD.
+  Future<bool> resetPassword(int userId, String password) async {
+    var url = "user/resetPassword/" + userId.toString();
+    final response =
+        await http.post(globals.API_URL + url, body: {"password": password});
+    return response.statusCode == 200
+        ? (response.body == "true" ? true : false)
+        : throw Exception();
+  }
 }
