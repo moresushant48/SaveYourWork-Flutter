@@ -88,4 +88,13 @@ class ApiMethodsImpl {
         ? (response.body == "true" ? true : false)
         : throw Exception();
   }
+
+  // GET : DELETE ACC  (INT USER_ID)
+  Future<bool> deleteUserAccount(int userId) async {
+    var url = "user/account/delete/" + userId.toString();
+    final response = await http.get(globals.API_URL + url);
+    return response.statusCode == 200
+        ? (response.body == "true" ? true : false)
+        : throw Exception();
+  }
 }

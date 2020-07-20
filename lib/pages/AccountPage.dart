@@ -70,6 +70,59 @@ class _AccountPageState extends State<AccountPage> {
         });
   }
 
+  _deleteCurrentUser() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Delete Account"),
+          content: Text("Are you sure about deleting your account ?"),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("No"),
+            ),
+            FlatButton(
+              onPressed: () async {
+                Fluttertoast.showToast(
+                    msg: "Cleaning up App..!",
+                    backgroundColor: Colors.red,
+                    toastLength: Toast.LENGTH_SHORT,
+                    textColor: Colors.white,
+                    timeInSecForIosWeb: 2,
+                    gravity: ToastGravity.TOP);
+
+                await _api.deleteUserAccount(_userId).then((value) async {
+                  if (value) {
+                    final prefs = await SharedPreferences.getInstance();
+
+                    prefs.clear().then((value) {
+                      if (value) {
+                        prefs.setBool("isLoggedIn", false);
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            Navigator.defaultRouteName, (route) => false);
+                        Fluttertoast.showToast(
+                            msg: "Thank You for using our services.",
+                            backgroundColor: Colors.green,
+                            toastLength: Toast.LENGTH_LONG,
+                            textColor: Colors.white,
+                            timeInSecForIosWeb: 2,
+                            gravity: ToastGravity.TOP);
+                      }
+                    });
+                  }
+                });
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,7 +283,7 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                           Text("Delete My Account")
                         ]),
-                        onPressed: () {},
+                        onPressed: _deleteCurrentUser,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
