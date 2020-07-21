@@ -150,7 +150,9 @@ class _AccountPageState extends State<AccountPage> {
                         radius: 50.0,
                         backgroundColor: Colors.amber,
                         child: Text(
-                          _username.substring(0, 1).toUpperCase(),
+                          _username == null
+                              ? ""
+                              : _username.substring(0, 1).toUpperCase(),
                           style: TextStyle(fontSize: 24.0),
                         ),
                       ),
