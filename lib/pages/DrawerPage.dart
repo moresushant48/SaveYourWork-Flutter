@@ -1,6 +1,7 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/API/ApiMethodsImpl.dart';
 import 'package:web_test/pages/SharedUserPage.dart';
@@ -11,11 +12,15 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
   SharedPreferences _prefs;
+  bool _isAuthEnabled = false;
   String email = "";
   String username = "";
 
   TextEditingController _getUsernameController = TextEditingController();
+
+  bool _doesPlatformHaveBiometrics = false;
 
   @override
   void initState() {
@@ -24,10 +29,16 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   _getDataInVariables() async {
+    _doesPlatformHaveBiometrics = await _localAuthentication.canCheckBiometrics;
+
     _prefs = await SharedPreferences.getInstance();
     setState(() {
       email = _prefs.getString("email");
       username = _prefs.getString("username");
+      _isAuthEnabled = _prefs.getBool("isAuthEnabled");
+      if (_isAuthEnabled == null) {
+        _isAuthEnabled = false;
+      }
     });
   }
 
@@ -164,6 +175,28 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
 
           Divider(),
+
+          Visibility(
+            visible: _doesPlatformHaveBiometrics,
+            child: SwitchListTile(
+              value: _isAuthEnabled,
+              title: Text("Digital Authentication"),
+              subtitle: Text("Use Additional Biometric Security"),
+              onChanged: (changedValue) async {
+                _localAuthentication
+                    .authenticateWithBiometrics(
+                        localizedReason:
+                            "Verification to Enable/Disable the authentication.")
+                    .then((value) async {
+                  if (value) {
+                    setState(() => _isAuthEnabled = changedValue);
+                    var prefs = await SharedPreferences.getInstance();
+                    prefs.setBool("isAuthEnabled", changedValue);
+                  }
+                });
+              },
+            ),
+          ),
 
           // Logout Tile.
           ListTile(
