@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_test/API/ApiMethodsImpl.dart';
-import 'package:web_test/Models/User.dart';
+import 'package:SaveYourWork/API/ApiMethodsImpl.dart';
+import 'package:SaveYourWork/Models/User.dart';
 
 class LoginPage extends StatefulWidget {
   @override

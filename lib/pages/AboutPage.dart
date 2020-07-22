@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:web_test/pages/DrawerPage.dart';
+import 'package:SaveYourWork/pages/DrawerPage.dart';
 
 class AboutPage extends StatelessWidget {
   @override

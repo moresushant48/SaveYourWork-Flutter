@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_test/API/ApiMethodsImpl.dart';
+import 'package:SaveYourWork/API/ApiMethodsImpl.dart';
 
-import 'package:web_test/Globals.dart' as global;
-import 'package:web_test/pages/DrawerPage.dart';
+import 'package:SaveYourWork/Globals.dart' as global;
+import 'package:SaveYourWork/pages/DrawerPage.dart';
 
 class HomePage extends StatelessWidget {
   @override

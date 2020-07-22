@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:web_test/Models/User.dart';
+import 'package:SaveYourWork/Models/User.dart';
 import 'package:http/http.dart' as http;
-import 'package:web_test/Globals.dart' as globals;
+import 'package:SaveYourWork/Globals.dart' as globals;
 
 class ApiMethodsImpl {
   // LOGIN

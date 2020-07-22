@@ -2,8 +2,8 @@ import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:web_test/API/ApiMethodsImpl.dart';
-import 'package:web_test/pages/DrawerPage.dart';
+import 'package:SaveYourWork/API/ApiMethodsImpl.dart';
+import 'package:SaveYourWork/pages/DrawerPage.dart';
 
 class SharedUserFiles extends StatefulWidget {
   final int userId;

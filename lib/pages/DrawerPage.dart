@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_test/API/ApiMethodsImpl.dart';
-import 'package:web_test/pages/SharedUserPage.dart';
+import 'package:SaveYourWork/API/ApiMethodsImpl.dart';
+import 'package:SaveYourWork/pages/SharedUserPage.dart';
 
 class AppDrawer extends StatefulWidget {
   @override

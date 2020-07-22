@@ -1,12 +1,12 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:web_test/pages/AboutPage.dart';
-import 'package:web_test/pages/AccountPage.dart';
-import 'package:web_test/pages/HomePage.dart';
-import 'package:web_test/pages/LoginPage.dart';
-import 'package:web_test/pages/RegisterPage.dart';
-import 'package:web_test/pages/SharedUserPage.dart';
-import 'package:web_test/pages/SplashPage.dart';
+import 'package:SaveYourWork/pages/AboutPage.dart';
+import 'package:SaveYourWork/pages/AccountPage.dart';
+import 'package:SaveYourWork/pages/HomePage.dart';
+import 'package:SaveYourWork/pages/LoginPage.dart';
+import 'package:SaveYourWork/pages/RegisterPage.dart';
+import 'package:SaveYourWork/pages/SharedUserPage.dart';
+import 'package:SaveYourWork/pages/SplashPage.dart';
 
 void main() {
   runApp(MyApp());

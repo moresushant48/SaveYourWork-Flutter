@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:web_test/API/ApiMethodsImpl.dart';
-import 'package:web_test/pages/DrawerPage.dart';
+import 'package:SaveYourWork/API/ApiMethodsImpl.dart';
+import 'package:SaveYourWork/pages/DrawerPage.dart';
 
 class AccountPage extends StatefulWidget {
   @override
