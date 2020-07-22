@@ -100,6 +100,7 @@ class _HomeBodyState extends State<HomeBody> {
                               // Horizontal RECENTS LISTVIEW
                               Container(
                                 height: 135.0,
+                                alignment: Alignment.centerLeft,
                                 child: AnimationLimiter(
                                   child: ListView.builder(
                                     shrinkWrap: true,
