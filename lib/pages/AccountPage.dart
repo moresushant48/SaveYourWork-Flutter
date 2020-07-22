@@ -42,31 +42,34 @@ class _AccountPageState extends State<AccountPage> {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text("Generate New Key"),
-            content: Text("Do you really want to generate new Shared Key ?"),
-            actions: [
-              FlatButton(
-                  child: Text("No"),
-                  onPressed: () {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              title: Text("Generate New Key"),
+              content: Text("Do you really want to generate new Shared Key ?"),
+              actions: [
+                FlatButton(
+                    child: Text("No"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _isFetchingKey = false;
+                      setState(() {});
+                    }),
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () async {
                     Navigator.pop(context);
-                    _isFetchingKey = false;
-                    setState(() {});
-                  }),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  Navigator.pop(context);
-                  await _api.generateSharedKey(_userId).then((value) async {
-                    _pass = value;
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setString("pass", value);
-                    _isFetchingKey = false;
-                    setState(() {});
-                  });
-                },
-              )
-            ],
+                    await _api.generateSharedKey(_userId).then((value) async {
+                      _pass = value;
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setString("pass", value);
+                      _isFetchingKey = false;
+                      setState(() {});
+                    });
+                  },
+                )
+              ],
+            ),
           );
         });
   }
