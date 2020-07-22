@@ -30,7 +30,8 @@ class _AccountPageState extends State<AccountPage> {
     _userId = prefs.getInt("id");
     _username = prefs.getString("username");
     _email = prefs.getString("email");
-    _pass = prefs.getString("pass");
+    setState(() {});
+    _pass = await _api.getSharedKey(_userId);
     setState(() {});
   }
 
