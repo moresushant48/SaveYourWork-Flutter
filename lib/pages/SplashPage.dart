@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
@@ -23,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(Duration(seconds: 3), () {
       _isLoggedIn().then((value) async {
         if (value) {
-          if (_isAuthEnabled) // if authentication
+          if (!kIsWeb && _isAuthEnabled) // if authentication
             await _localAuthentication.canCheckBiometrics
                 .then((canCheck) async {
               canCheck

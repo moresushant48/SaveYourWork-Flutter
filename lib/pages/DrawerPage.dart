@@ -1,4 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
@@ -30,6 +31,9 @@ class _AppDrawerState extends State<AppDrawer> {
 
   _getDataInVariables() async {
     _doesPlatformHaveBiometrics = await _localAuthentication.canCheckBiometrics;
+    if (kIsWeb) {
+      _doesPlatformHaveBiometrics = false;
+    }
 
     _prefs = await SharedPreferences.getInstance();
     setState(() {
