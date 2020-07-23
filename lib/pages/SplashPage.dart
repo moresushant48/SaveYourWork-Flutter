@@ -92,6 +92,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           Image.asset(
             "assets/images/AppLogo.png",
+            height: kIsWeb ? MediaQuery.of(context).size.height / 2 : null,
             width: orientation == Orientation.portrait
                 ? MediaQuery.of(context).size.width - 140
                 : (MediaQuery.of(context).size.width / 2) - 140,
