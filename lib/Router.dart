@@ -5,6 +5,7 @@ import 'package:SaveYourWork/pages/LoginPage.dart';
 import 'package:SaveYourWork/pages/RegisterPage.dart';
 import 'package:SaveYourWork/pages/SharedUserPage.dart';
 import 'package:SaveYourWork/pages/SplashPage.dart';
+import 'package:SaveYourWork/pages/UserWaiting.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -34,11 +35,7 @@ class Router {
       default:
         return MaterialPageRoute(
             settings: settings,
-            builder: (_) => Scaffold(
-                  body: Center(
-                    child: Text("No such routes " + settings.name),
-                  ),
-                ));
+            builder: (_) => UserWaitPage(settings.name.substring(1)));
     }
   }
 }
