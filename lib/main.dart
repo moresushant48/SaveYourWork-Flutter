@@ -1,12 +1,6 @@
+import 'package:SaveYourWork/Router.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:SaveYourWork/pages/AboutPage.dart';
-import 'package:SaveYourWork/pages/AccountPage.dart';
-import 'package:SaveYourWork/pages/HomePage.dart';
-import 'package:SaveYourWork/pages/LoginPage.dart';
-import 'package:SaveYourWork/pages/RegisterPage.dart';
-import 'package:SaveYourWork/pages/SharedUserPage.dart';
-import 'package:SaveYourWork/pages/SplashPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,15 +31,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'SaveYourWork',
             theme: theme,
-            home: SplashPage(),
-            routes: {
-              "/home": (context) => HomePage(),
-              "/login": (context) => LoginPage(),
-              "/register": (context) => RegisterPage(),
-              "/about": (context) => AboutPage(),
-              "/shared": (context) => SharedUserFiles(0),
-              "/account": (context) => AccountPage()
-            },
+            initialRoute: "/",
+            onGenerateRoute: Router.generateRoute,
           );
         });
   }
