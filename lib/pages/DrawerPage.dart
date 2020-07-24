@@ -16,6 +16,7 @@ class _AppDrawerState extends State<AppDrawer> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   SharedPreferences _prefs;
   bool _isAuthEnabled = false;
+  bool _isLoggedIn = false;
   String email = "";
   String username = "";
 
@@ -42,6 +43,10 @@ class _AppDrawerState extends State<AppDrawer> {
       _isAuthEnabled = _prefs.getBool("isAuthEnabled");
       if (_isAuthEnabled == null) {
         _isAuthEnabled = false;
+      }
+      _isLoggedIn = _prefs.getBool("isLoggedIn");
+      if (_isLoggedIn == null) {
+        _isLoggedIn = false;
       }
     });
   }
@@ -72,11 +77,14 @@ class _AppDrawerState extends State<AppDrawer> {
             ],
           ),
 
-          ListTile(
-            title: Text("My Files"),
-            trailing: Icon(Icons.folder),
-            subtitle: Text("Access your all files."),
-            onTap: () => Navigator.pushReplacementNamed(context, "/home"),
+          Visibility(
+            visible: _isLoggedIn,
+            child: ListTile(
+              title: Text("My Files"),
+              trailing: Icon(Icons.folder),
+              subtitle: Text("Access your all files."),
+              onTap: () => Navigator.pushReplacementNamed(context, "/home"),
+            ),
           ),
 
           ListTile(
@@ -164,11 +172,14 @@ class _AppDrawerState extends State<AppDrawer> {
           Divider(),
 
           // About tile.
-          ListTile(
-            title: Text("Account"),
-            trailing: Icon(Icons.account_circle),
-            subtitle: Text("View account info"),
-            onTap: () => Navigator.pushReplacementNamed(context, "/account"),
+          Visibility(
+            visible: _isLoggedIn,
+            child: ListTile(
+              title: Text("Account"),
+              trailing: Icon(Icons.account_circle),
+              subtitle: Text("View account info"),
+              onTap: () => Navigator.pushReplacementNamed(context, "/account"),
+            ),
           ),
 
           // About tile.
@@ -203,36 +214,39 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
 
           // Logout Tile.
-          ListTile(
-            title: Text("Logout"),
-            trailing: Icon(Icons.exit_to_app),
-            onTap: () {
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text("Logout"),
-                    content: Text("Do you really want to logout ?"),
-                    actions: [
-                      FlatButton(
-                        child: Text("No"),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      FlatButton(
-                        child: Text("Yes"),
-                        onPressed: () async {
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setBool("isLoggedIn", false);
-                          Navigator.pushNamedAndRemoveUntil(context,
-                              Navigator.defaultRouteName, (route) => false);
-                        },
-                      )
-                    ],
-                  );
-                },
-              );
-            },
+          Visibility(
+            visible: _isLoggedIn,
+            child: ListTile(
+              title: Text("Logout"),
+              trailing: Icon(Icons.exit_to_app),
+              onTap: () {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Logout"),
+                      content: Text("Do you really want to logout ?"),
+                      actions: [
+                        FlatButton(
+                          child: Text("No"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        FlatButton(
+                          child: Text("Yes"),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool("isLoggedIn", false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                Navigator.defaultRouteName, (route) => false);
+                          },
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           )
         ],
       ),
