@@ -31,24 +31,26 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 
   _getDataInVariables() async {
-    _doesPlatformHaveBiometrics = await _localAuthentication.canCheckBiometrics;
     if (kIsWeb) {
       _doesPlatformHaveBiometrics = false;
-    }
+    } else
+      _doesPlatformHaveBiometrics =
+          await _localAuthentication.canCheckBiometrics;
 
     _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      email = _prefs.getString("email");
-      username = _prefs.getString("username");
-      _isAuthEnabled = _prefs.getBool("isAuthEnabled");
-      if (_isAuthEnabled == null) {
-        _isAuthEnabled = false;
-      }
-      _isLoggedIn = _prefs.getBool("isLoggedIn");
-      if (_isLoggedIn == null) {
-        _isLoggedIn = false;
-      }
-    });
+
+    email = _prefs.getString("email");
+    username = _prefs.getString("username");
+
+    _isAuthEnabled = _prefs.getBool("isAuthEnabled");
+    if (_isAuthEnabled == null) {
+      _isAuthEnabled = false;
+    }
+    _isLoggedIn = _prefs.getBool("isLoggedIn");
+    if (_isLoggedIn == null) {
+      _isLoggedIn = false;
+    }
+    setState(() {});
   }
 
   @override
