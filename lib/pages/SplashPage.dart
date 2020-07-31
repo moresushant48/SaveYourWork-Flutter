@@ -19,33 +19,38 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    super.initState();
-
     Future.delayed(Duration(seconds: 3), () {
-      _isLoggedIn().then((value) async {
-        if (value) {
-          if (!kIsWeb && _isAuthEnabled) // if authentication
-            await _localAuthentication.canCheckBiometrics
-                .then((canCheck) async {
-              canCheck
-                  ? await _localAuthentication
-                      .authenticateWithBiometrics(
-                          localizedReason: "Wait, you gotta pass this test.")
-                      .then((authSuccess) {
-                      if (authSuccess)
-                        Navigator.popAndPushNamed(context, "/home");
-                      else
-                        SystemNavigator.pop();
-                    })
-                  : null;
-            }); // is enabled. Ask for auth.
-          else
-            Navigator.popAndPushNamed(
-                context, "/home"); // is disabled. Directly go home.
-        } else
-          Navigator.popAndPushNamed(context, "/login");
-      });
+      //
+      if (kIsWeb) {
+        Navigator.pushNamedAndRemoveUntil(context, "/index", (_) => false);
+      } else
+
+        //
+        _isLoggedIn().then((value) async {
+          if (value) {
+            if (!kIsWeb && _isAuthEnabled) // if authentication
+              await _localAuthentication.canCheckBiometrics
+                  .then((canCheck) async {
+                canCheck
+                    ? await _localAuthentication
+                        .authenticateWithBiometrics(
+                            localizedReason: "Wait, you gotta pass this test.")
+                        .then((authSuccess) {
+                        if (authSuccess)
+                          Navigator.popAndPushNamed(context, "/home");
+                        else
+                          SystemNavigator.pop();
+                      })
+                    : null;
+              }); // is enabled. Ask for auth.
+            else
+              Navigator.popAndPushNamed(
+                  context, "/home"); // is disabled. Directly go home.
+          } else
+            Navigator.popAndPushNamed(context, "/login");
+        });
     });
+    super.initState();
   }
 
   Future<bool> _isLoggedIn() async {

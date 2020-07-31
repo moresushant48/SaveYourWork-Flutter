@@ -1,6 +1,7 @@
 import 'package:SaveYourWork/pages/AboutPage.dart';
 import 'package:SaveYourWork/pages/AccountPage.dart';
 import 'package:SaveYourWork/pages/HomePage.dart';
+import 'package:SaveYourWork/pages/IndexPage/IndexWebPage.dart';
 import 'package:SaveYourWork/pages/LoginPage.dart';
 import 'package:SaveYourWork/pages/RegisterPage.dart';
 import 'package:SaveYourWork/pages/SharedUserPage.dart';
@@ -14,6 +15,9 @@ class Router {
       case '/':
         return MaterialPageRoute(
             settings: settings, builder: (_) => SplashPage());
+      case '/index':
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => IndexWebPage());
       case '/home':
         return MaterialPageRoute(
             settings: settings, builder: (_) => HomePage());

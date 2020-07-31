@@ -38,6 +38,8 @@ dependencies:
   url_launcher: ^5.4.11
   local_auth: ^0.6.2+3
   flutter_launcher_icons: ^0.7.5
+  animations: ^1.1.1
+  font_awesome_flutter: ^8.8.1
 
 
 flutter_icons:
@@ -80,6 +82,10 @@ flutter:
     - family: Oxygen
       fonts:
         - asset: assets/fonts/Oxygen-Regular.ttf
+    
+    - family: Lobster
+      fonts:
+        - asset: assets/fonts/Lobster-Regular.ttf
         
   #   - family: Trajan Pro
   #     fonts:
